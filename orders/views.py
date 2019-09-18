@@ -5,16 +5,20 @@ from django.urls import reverse
 from django.contrib.auth.forms import UserCreationForm
 
 from orders.forms import SignUpForm
+from .models import Pizza, Toppings, Pasta, Salads, SubExtra, Subs, DinnerPlatters
 
 
 def index(request):
     if not request.user.is_authenticated:
         return render(request, "orders/login.html", {"message": None})
     context = {
-        "user": request.user
+        "user": request.user,
+        "salads": Salads.objects.all(),
     }
     return render(request, "orders/menu.html", context)
 
+
+ 
 def login_view(request):
     username = request.POST["username"]
     password = request.POST["password"]
@@ -24,7 +28,7 @@ def login_view(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "orders/login.html", {"message": "Invalid credentials."})
-
+ 
 def logout_view(request):
     logout(request)
     return render(request, "orders/login.html", {"message": "Logged out."})

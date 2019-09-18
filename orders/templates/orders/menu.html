@@ -6,6 +6,29 @@
     <li>Currently logged in as: {{ user.username }}</li>
     <li><a href="{% url 'logout' %}">Logout</a></li>
 </ul>
+<hr>
+
+<h4>Hello, {{ user.first_name }}, please choose your dish</h4>
+<ul>
+    <table style="width:80%">
+        <tr>
+            <th>Salad</th>
+            <th>Price</th>
+            <th>Order</th>
+        </tr>
+        {% for salad in salads %}
+        <tr>
+            <td>{{ salad.description }}</td>
+            <td>{{ salad.price }}</td>
+            <td><a href="">Add to chart</a></td>
+        </tr>
+    {% empty %}
+        <th>No Salads</th>
+        <th>No Salads</th>
+        <th>No Salads</th>
+    {% endfor %}
+    </table>
+</ul>
 
 
 {% endblock %}

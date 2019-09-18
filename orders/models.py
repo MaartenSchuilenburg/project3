@@ -1,6 +1,6 @@
 from django.db import models
 
-# to import in shell following comamnd >> from orders.models import Pizza, Toppings, Pasta, Salads
+# to import in shell following comamnd >> from orders.models import Pizza, Toppings, Pasta, Salads, SubExtra, Subs, DinnerPlatters
 
 # Create your models here.
 
