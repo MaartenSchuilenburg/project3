@@ -7,7 +7,7 @@
         {{ message }}
     </div>
 {% endif %}
-
+<hr>
 <form action="{% url 'login' %}" method="post">
     {% csrf_token %}
     Username:
@@ -16,4 +16,7 @@
     <input name="password" type="password"/>
     <input type="submit" value="Login"/>
 </form>
+<hr>
+No account yet? <a href="{% url 'signup' %}"> sign up! </a>
+
 {% endblock %}
