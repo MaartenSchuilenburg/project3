@@ -27,13 +27,13 @@
                     <tr>
                         <td>{{ salad.description }}</td>
                         <td>{{ salad.price }}</td>
-                        <td><a href="">Add to chart</a></td>
+                        <td><a href="#" data-name="{{ salad.description }}" data-price="{{ salad.price }}" class="add-to-cart" onclick="sendToCart(this)">Add to chart</a></td>
                     </tr>
-                {% empty %}
-                    <th>No Salads</th>
-                    <th>No Salads</th>
-                    <th>No Salads</th>
-                {% endfor %}
+                    {% empty %}
+                        <th>No Salads</th>
+                        <th>No Salads</th>
+                        <th>No Salads</th>
+                    {% endfor %}
                 </table>
             </ul>
 
@@ -50,43 +50,66 @@
                         <td>{{ sub.price }}</td>
                         <td><a href="">Add to chart</a></td>
                     </tr>
-                {% empty %}
-                    <th>No Sub</th>
-                    <th>No Sub</th>
-                    <th>No Sub</th>
-                {% endfor %}
+                    {% empty %}
+                        <th>No Sub</th>
+                        <th>No Sub</th>
+                        <th>No Sub</th>
+                    {% endfor %}
                 </table>
             </ul>
+
+            <ul>
+                <table style="width:100%">
+                    <tr>
+                        <th>Sub Extra</th>
+                        <th>Price</th>
+                        <th>Order</th>
+                    </tr>
+                    {% for extra in subextra %}
+                    <tr>
+                        <td>{{ extra.description }}</td>
+                        <td>{{ extra.price }}</td>
+                        <td><a href="">Add to chart</a></td>
+                    </tr>
+                    {% empty %}
+                        <th>No Sub</th>
+                        <th>No Sub</th>
+                        <th>No Sub</th>
+                    {% endfor %}
+                </table>
+            </ul>
+
         </div>
 
         <div class="shopping-cart col-4">
             <h3>Your cart</h3>
-            <ul>
-                <li>Pizza Cheese</li>
-                <li>whatever</li>
-            </ul>
+            <div>
+                <ul id="shopping-cart-list">
+                </ul>
+            </div>
             <hr>
-            <p>total costs: 12</p>
+            <div>Total price: $<span class="total-cart" id="shopping-cart-total"></span></div>
 
             <hr>
-                
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Oder
-            </button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cart">Cart (<span id="total-count-cart"></span>)</button><button class="clear-cart btn btn-danger">Clear Cart</button>    
 
             <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Cart</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     Are you sure you want to order?
+                    <table class="show-cart table">
+          
+                    </table>
+                    <div>Total price: $<span id="shopping-cart-total-modal"></span></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
