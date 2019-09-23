@@ -14,6 +14,7 @@ def index(request):
     context = {
         "user": request.user,
         "salads": Salads.objects.all(),
+        "subs": Subs.objects.all(),
     }
     return render(request, "orders/menu.html", context)
 

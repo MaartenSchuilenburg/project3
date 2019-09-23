@@ -1,34 +1,110 @@
 {% extends "orders/base.html" %}
 
+
 {% block body %}
-<h1>Hello, {{ user.first_name }}</h1>
+<h2>Hello, {{ user.first_name }}, please choose your dish</h2>
 <ul>
     <li>Currently logged in as: {{ user.username }}</li>
     <li><a href="{% url 'logout' %}">Logout</a></li>
 </ul>
 <hr>
 
-<h4>Hello, {{ user.first_name }}, please choose your dish</h4>
-<ul>
-    <table style="width:80%">
-        <tr>
-            <th>Salad</th>
-            <th>Price</th>
-            <th>Order</th>
-        </tr>
-        {% for salad in salads %}
-        <tr>
-            <td>{{ salad.description }}</td>
-            <td>{{ salad.price }}</td>
-            <td><a href="">Add to chart</a></td>
-        </tr>
-    {% empty %}
-        <th>No Salads</th>
-        <th>No Salads</th>
-        <th>No Salads</th>
-    {% endfor %}
-    </table>
-</ul>
+
+<h2>Our Pizza Menu</h2>
+<hr>
+
+<div class="container">
+    <div class="row">
+        <div class="menu col-8">
+            <ul>
+                <table style="width:100%">
+                    <tr>
+                        <th>Salad</th>
+                        <th>Price</th>
+                        <th>Order</th>
+                    </tr>
+                    {% for salad in salads %}
+                    <tr>
+                        <td>{{ salad.description }}</td>
+                        <td>{{ salad.price }}</td>
+                        <td><a href="">Add to chart</a></td>
+                    </tr>
+                {% empty %}
+                    <th>No Salads</th>
+                    <th>No Salads</th>
+                    <th>No Salads</th>
+                {% endfor %}
+                </table>
+            </ul>
+
+            <ul>
+                <table style="width:100%">
+                    <tr>
+                        <th>Sub</th>
+                        <th>Price</th>
+                        <th>Order</th>
+                    </tr>
+                    {% for sub in subs %}
+                    <tr>
+                        <td>{{ sub.description }}</td>
+                        <td>{{ sub.price }}</td>
+                        <td><a href="">Add to chart</a></td>
+                    </tr>
+                {% empty %}
+                    <th>No Sub</th>
+                    <th>No Sub</th>
+                    <th>No Sub</th>
+                {% endfor %}
+                </table>
+            </ul>
+        </div>
+
+        <div class="shopping-cart col-4">
+            <h3>Your cart</h3>
+            <ul>
+                <li>Pizza Cheese</li>
+                <li>whatever</li>
+            </ul>
+            <hr>
+            <p>total costs: 12</p>
+
+            <hr>
+                
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Oder
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to order?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Confirm order</button>
+                </div>
+                </div>
+            </div>
+            </div>
+        
+        </div>
+    </div>
+
+
+
+
+</div>
+
+
 
 
 {% endblock %}
