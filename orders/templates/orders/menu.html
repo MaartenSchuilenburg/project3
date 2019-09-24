@@ -79,7 +79,7 @@
                     <tr>
                         <td width="40%">{{ pizza.description }}</td>
                         <td width="40%">{{ pizza.price }}</td>
-                        <td width="15%"><a href="" class="btn btn-primary">Add to cart</a></td>
+                        <td width="15%"><a href="" data-toggle="modal" data-target="#modal-pizza" class="btn btn-primary">Add to cart</a></td>
                     </tr>
                     {% empty %}
                         <th>No Pizza</th>
@@ -151,9 +151,38 @@
     <form>
         <div class="modal-body">
             Which extra would you like with your sub?
-                <select onchange="addExtra(this)" id="select_id">
+                <select onchange="addExtra(this)">
+                    <option value="No Extras">No Extra (€0.00)</option>
                     {% for extra in subextra %}
                     <option value="{{ extra.description }}">{{ extra.description }} (€{{ extra.price }})</option>
+                    {% endfor %} 
+                </select>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Leave</button>
+            <a href="#" class="add-to-cart btn btn-primary" onclick="sendToCartSub()" data-dismiss="modal">Add to cart</a></td>
+        </div>
+    </form>
+    </div>
+</div>
+</div>
+
+<!-- Modal Pizza's-->
+<div class="modal fade" id="modal-pizza" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cart</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form>
+        <div class="modal-body">
+            Which topping would you like on your pizza?
+                <select>
+                    {% for topping in toppings %}
+                    <option value="{{ topping.description }}">{{ topping.description }}</option>
                     {% endfor %} 
                 </select>
         </div>

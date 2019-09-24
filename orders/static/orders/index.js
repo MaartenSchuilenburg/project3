@@ -9,18 +9,38 @@ document.addEventListener('DOMContentLoaded', () => {
 var totalPriceCart = 0;
 var totalItemsCart = 0;
 var choosenSub = [];
-var choosenExtra = [];
+var priceChoosenSub = 0;
+window.choosenExtra = [];
+
 
 function myFunction(item) {
     var itemDescription = item.getAttribute("data-name");
+    var itemPrice = item.getAttribute("data-price");
+    priceChoosenSub = itemPrice;
     choosenSub = itemDescription;
 };
 
 function addExtra(choosenExtra) {
+    window.choosenExtra = choosenExtra.value;
+};
+
+function sendToCartSub() {
+    var subItemPrice = 0.5;
+    if (window.choosenExtra.length === 0 || window.choosenExtra==="No Extras") {
+        window.choosenExtra = "No Extras";
+        subItemPrice = 0;
+    }
+
+    var itemDescription = "Sub "+choosenSub + ", with " + window.choosenExtra;
+    var itemPrice = priceChoosenSub;
+
+    totalItemsCart = totalItemsCart+1;
+    totalPriceCart = Number(parseFloat(totalPriceCart) + parseFloat(subItemPrice) + parseFloat(itemPrice)).toFixed(2); 
     
-    choosenExtra = choosenExtra.value;
-    console.log(choosenSub);
-    console.log(choosenExtra);
+    document.getElementById('shopping-cart-total').innerHTML = totalPriceCart;
+    document.getElementById('total-count-cart').innerHTML = totalItemsCart;
+
+    addToShoppingCartList(itemDescription, itemPrice);
 };
 
 
@@ -29,7 +49,7 @@ function sendToCart(item) {
     var itemPrice = item.getAttribute("data-price");
     
     totalItemsCart = totalItemsCart+1;
-    totalPriceCart = parseFloat(totalPriceCart) + parseFloat(itemPrice); 
+    totalPriceCart = Number(parseFloat(totalPriceCart) + parseFloat(itemPrice)).toFixed(2);; 
 
     document.getElementById('shopping-cart-total').innerHTML = totalPriceCart;
     document.getElementById('shopping-cart-total-modal').innerHTML = totalPriceCart;

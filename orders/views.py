@@ -17,6 +17,7 @@ def index(request):
         "subs": Subs.objects.all(),
         "subextra":SubExtra.objects.all(),
         "pizzas":Pizza.objects.all(),
+        "toppings":Toppings.objects.all(),
     }
     return render(request, "orders/menu.html", context)
 
