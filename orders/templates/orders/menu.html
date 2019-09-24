@@ -17,7 +17,7 @@
     <div class="row">
 
         <!--Pizza Menu-->
-        <div class="menu col-8">
+        <div class="menu col-lg-8 col-md-12">
             <!--Salad table -->
             <ul>
                 <table style="width:100%">
@@ -79,7 +79,7 @@
                     <tr>
                         <td width="40%">{{ pizza.description }}</td>
                         <td width="40%">{{ pizza.price }}</td>
-                        <td width="15%"><a href="" data-toggle="modal" data-target="#modal-pizza" class="btn btn-primary">Add to cart</a></td>
+                        <td width="15%"><a href="" data-amount={{ pizza.pizza_toppings }} data-toggle="modal" data-target="#modal-pizza" class="btn btn-primary" onclick="addPizzaToppings(this)">Add to cart</a></td>
                     </tr>
                     {% empty %}
                         <th>No Pizza</th>
@@ -92,7 +92,7 @@
         </div>
         <!--End Pizza Menu-->
 
-        <div class="shopping-cart col-4">
+        <div class="shopping-cart col-lg-4">
             <h3>Your cart</h3>
             <div>
                 <ul id="shopping-cart-list">
@@ -178,9 +178,25 @@
         </button>
     </div>
     <form>
-        <div class="modal-body">
+        <div class="modal-body" id="pizza-modal">
             Which topping would you like on your pizza?
-                <select>
+                <br>
+                <select id="select-pizza-topping-1" disabled>
+                    <option value="No Topping">No Topping</option>
+                    {% for topping in toppings %}
+                    <option value="{{ topping.description }}">{{ topping.description }}</option>
+                    {% endfor %} 
+                </select>
+                <br>
+                <select id="select-pizza-topping-2" disabled>
+                    <option value="No Topping">No Topping</option>
+                    {% for topping in toppings %}
+                    <option value="{{ topping.description }}">{{ topping.description }}</option>
+                    {% endfor %} 
+                </select>
+                <br>
+                <select id="select-pizza-topping-3" disabled>
+                    <option value="No Topping">No Topping</option>
                     {% for topping in toppings %}
                     <option value="{{ topping.description }}">{{ topping.description }}</option>
                     {% endfor %} 

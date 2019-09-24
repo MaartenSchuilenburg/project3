@@ -12,6 +12,25 @@ var choosenSub = [];
 var priceChoosenSub = 0;
 window.choosenExtra = [];
 
+function addPizzaToppings (pizza) {
+    document.getElementById("select-pizza-topping-1").disabled=true;
+    document.getElementById("select-pizza-topping-2").disabled=true;
+    document.getElementById("select-pizza-topping-3").disabled=true;
+
+    toppingsAmount = pizza.getAttribute("data-amount");
+
+    /*
+    for (i = 0; i < toppingSelectors.length; i++) {
+        toppingSelectors[i].disabled = true;
+    };*/
+
+    for (i = 0; i<toppingsAmount; i++) {
+        var loopToppings = "select-pizza-topping-"+(i+1);
+        var loopToppings2 = String(loopToppings);
+        document.getElementById(loopToppings2).disabled = false;
+    };
+
+};
 
 function myFunction(item) {
     var itemDescription = item.getAttribute("data-name");

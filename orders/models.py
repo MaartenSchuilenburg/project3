@@ -20,8 +20,14 @@ class Pizza(models.Model):
         ('R', 'Regular'),
         ('S', 'Sicilian'),
     )
+    PIZZA_TOPPINGS = (
+        (0, 0),
+        (1, 1),
+        (2, 2),
+    )
     size = models.CharField(max_length=1, choices=PIZZA_SIZES, default="S")
     pizza_type = models.CharField(max_length=1, choices=PIZZA_TYPES, default="R")
+    pizza_toppings = models.IntegerField(choices=PIZZA_TOPPINGS, default=0)
     price = models.FloatField()
     toppings = models.ManyToManyField(Toppings)
 
