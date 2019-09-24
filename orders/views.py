@@ -20,6 +20,11 @@ def index(request):
         "toppings":Toppings.objects.all(),
     }
     return render(request, "orders/menu.html", context)
+    
+    if request.is_ajax():
+        #do something
+        request_data = request.POST
+        return HttpResponse("OK")
 
 
  

@@ -80,3 +80,15 @@ class DinnerPlatters(models.Model):
 
     def __str__(self):
         return self.description
+
+class ShoppingCart(models.Model): #Todo migreren
+    order_id = models.IntegerField()   # ToDo kijken of je met many to many relationships kan fixen 
+    item = models.CharField(max_length=100)
+    price_item = models.IntegerField() 
+    total_price = models.FloatField()
+
+class Orders(models.Model): #Todo migreren
+    order_id = models.IntegerField()   # ToDo kijken of je met many to many relationships kan fixen 
+    item = models.CharField(max_length=100)
+    price_item = models.IntegerField() 
+    total_price = models.FloatField()

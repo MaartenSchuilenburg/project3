@@ -95,15 +95,16 @@
         <div class="shopping-cart col-lg-4">
             <h3>Your cart</h3>
             <div>
-                <ul id="shopping-cart-list">
+                <ul id="shopping-cart-list"> <!--Showing items in shopping cart-->
                 </ul>
             </div>
             <hr>
-            <div>Total price: €<span class="total-cart" id="shopping-cart-total">0</span></div>
+            <div>Total price: €<span class="total-cart" id="shopping-cart-total">0</span></div> <!--Showing Total Price-->
 
             <hr>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cart">Cart (<span id="total-count-cart"></span>)</button><button class="clear-cart btn btn-danger">Clear Cart</button>    
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cart">Place order</button><small>      </small>
+            <button class="clear-cart btn btn-danger" onclick="clearCart()">Clear Cart</button>  <!--onclick="clearCart()"-->
 
             <!-- Modal Check out-->
             <div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -120,7 +121,7 @@
                     <table class="show-cart table">
           
                     </table>
-                    <div>Total price: €<span id="shopping-cart-total-modal">0</span></div>
+                    <div>Total price: €<span id="shopping-cart-total-modal">0</span></div> 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -181,7 +182,7 @@
         <div class="modal-body" id="pizza-modal">
             Which topping would you like on your pizza?
                 <br>
-                <select id="select-pizza-topping-1" disabled>
+                <select class="select-pizza-topping" id="select-pizza-topping-1" disabled>
                     <option value="No Topping">No Topping</option>
                     {% for topping in toppings %}
                     <option value="{{ topping.description }}">{{ topping.description }}</option>
