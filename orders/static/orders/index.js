@@ -1,33 +1,28 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    //test 
-    /*
-    document.querySelectorAll('add-to-cart').forEach(a => {
-        a.onclick = () => {
-            var name = $(this).data('name');
-            var price = Number($(this).data('price'));
-            console.log(name+"price"+price);
-            //document.querySelector('#test').innerHTML = "teston";
-        };
-    });
-    */
-
-
-
 
 });
 
-/*
-$('#myModal').on('shown.bs.modal', function () {
-    $('#myInput').trigger('focus')
-});
 
-
-*/
 
 var totalPriceCart = 0;
 var totalItemsCart = 0;
+var choosenSub = [];
+var choosenExtra = [];
+
+function myFunction(item) {
+    var itemDescription = item.getAttribute("data-name");
+    choosenSub = itemDescription;
+};
+
+function addExtra(choosenExtra) {
+    
+    choosenExtra = choosenExtra.value;
+    console.log(choosenSub);
+    console.log(choosenExtra);
+};
+
 
 function sendToCart(item) {
     var itemDescription = item.getAttribute("data-name");
@@ -41,7 +36,6 @@ function sendToCart(item) {
     document.getElementById('total-count-cart').innerHTML = totalItemsCart;
 
     addToShoppingCartList(itemDescription, itemPrice);
-    //alert("This is a " + itemDescription + " costing: " + itemPrice);
 };
 
 
@@ -55,3 +49,23 @@ function addToShoppingCartList(description, price) {
     document.querySelector('#shopping-cart-list').append(li);
 
 };
+
+
+
+
+
+
+
+
+
+
+
+//addToShoppingCartList(choosenExtra.value, 0.50);
+
+/*
+$('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').trigger('focus')
+});
+
+
+*/

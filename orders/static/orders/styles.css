@@ -9,3 +9,7 @@ table, th, td {
 /* body {
     font-family: sans-serif;
 } */
+button {
+    margin:auto;
+    display:block;
+}

@@ -15,9 +15,13 @@
 
 <div class="container">
     <div class="row">
+
+        <!--Pizza Menu-->
         <div class="menu col-8">
+            <!--Salad table -->
             <ul>
                 <table style="width:100%">
+                <div class ="row">
                     <tr>
                         <th>Salad</th>
                         <th>Price</th>
@@ -25,61 +29,68 @@
                     </tr>
                     {% for salad in salads %}
                     <tr>
-                        <td>{{ salad.description }}</td>
-                        <td>{{ salad.price }}</td>
-                        <td><a href="#" data-name="{{ salad.description }}" data-price="{{ salad.price }}" class="add-to-cart" onclick="sendToCart(this)">Add to chart</a></td>
+                        <td width="40%">{{ salad.description }}</td>
+                        <td width="40%"> {{ salad.price }}</td>
+                        <td width="15%"><a href="#" data-name="{{ salad.description }}" data-price="{{ salad.price }}" class="add-to-cart btn btn-primary" onclick="sendToCart(this)">Add to cart</a></td>
                     </tr>
                     {% empty %}
                         <th>No Salads</th>
                         <th>No Salads</th>
                         <th>No Salads</th>
                     {% endfor %}
+                </div>
                 </table>
             </ul>
 
+            <!--Sub table -->
             <ul>
                 <table style="width:100%">
                     <tr>
                         <th>Sub</th>
                         <th>Price</th>
+                        {% comment %} <th>Add extra (+0.50)</th> {% endcomment %}
                         <th>Order</th>
                     </tr>
                     {% for sub in subs %}
                     <tr>
-                        <td>{{ sub.description }}</td>
-                        <td>{{ sub.price }}</td>
-                        <td><a href="">Add to chart</a></td>
+                        <td width="40%">{{ sub.description }}</td>
+                        <td width="40%">{{ sub.price }}</td>
+                        {% comment %} <td width="20%"><button class="w3-button w3-black">+</button></td> {% endcomment %}
+                        <td width="15%"><a href="#" data-name="{{ sub.description }}" data-price="{{ sub.price }}" class="btn btn-primary" onclick="myFunction(this)" data-toggle="modal" data-target="#modal-extra">Add to cart</a></td>
                     </tr>
                     {% empty %}
                         <th>No Sub</th>
                         <th>No Sub</th>
+                        {% comment %} <th>No Sub</th> {% endcomment %}
                         <th>No Sub</th>
                     {% endfor %}
                 </table>
             </ul>
 
+            <!--Pizza table -->
             <ul>
                 <table style="width:100%">
                     <tr>
-                        <th>Sub Extra</th>
+                        <th>Pizza</th>
                         <th>Price</th>
                         <th>Order</th>
                     </tr>
-                    {% for extra in subextra %}
+                    {% for pizza in pizzas %}
                     <tr>
-                        <td>{{ extra.description }}</td>
-                        <td>{{ extra.price }}</td>
-                        <td><a href="">Add to chart</a></td>
+                        <td width="40%">{{ pizza.description }}</td>
+                        <td width="40%">{{ pizza.price }}</td>
+                        <td width="15%"><a href="" class="btn btn-primary">Add to cart</a></td>
                     </tr>
                     {% empty %}
-                        <th>No Sub</th>
-                        <th>No Sub</th>
-                        <th>No Sub</th>
+                        <th>No Pizza</th>
+                        <th>No Pizza</th>
+                        <th>No Pizza</th>
                     {% endfor %}
                 </table>
             </ul>
 
         </div>
+        <!--End Pizza Menu-->
 
         <div class="shopping-cart col-4">
             <h3>Your cart</h3>
@@ -88,13 +99,13 @@
                 </ul>
             </div>
             <hr>
-            <div>Total price: $<span class="total-cart" id="shopping-cart-total"></span></div>
+            <div>Total price: €<span class="total-cart" id="shopping-cart-total">0</span></div>
 
             <hr>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cart">Cart (<span id="total-count-cart"></span>)</button><button class="clear-cart btn btn-danger">Clear Cart</button>    
 
-            <!-- Modal -->
+            <!-- Modal Check out-->
             <div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -109,25 +120,52 @@
                     <table class="show-cart table">
           
                     </table>
-                    <div>Total price: $<span id="shopping-cart-total-modal"></span></div>
+                    <div>Total price: €<span id="shopping-cart-total-modal">0</span></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary">Confirm order</button>
+                    
                 </div>
                 </div>
             </div>
             </div>
         
         </div>
+        
+
     </div>
-
-
-
 
 </div>
 
-
+<!-- Modal Sub extra's-->
+<div class="modal fade" id="modal-extra" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cart</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form>
+        <div class="modal-body">
+            Which extra would you like with your sub?
+                <select onchange="addExtra(this)" id="select_id">
+                    {% for extra in subextra %}
+                    <option value="{{ extra.description }}">{{ extra.description }} (€{{ extra.price }})</option>
+                    {% endfor %} 
+                </select>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Leave</button>
+            <button type="button" class="btn btn-primary">Add to cart</a>
+            {% comment %} <a href="#" data-name="{{ salad.description }}" data-price="{{ salad.price }}" class="add-to-cart btn btn-primary" onclick="sendToCart(this)">Add to cart</a></td> {% endcomment %}
+        </div>
+    </form>
+    </div>
+</div>
+</div>
 
 
 {% endblock %}
