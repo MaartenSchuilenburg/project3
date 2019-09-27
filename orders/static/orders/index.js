@@ -16,12 +16,18 @@ if (JSON.parse(window.localStorage.getItem('shoppingCart'))==null) {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    fillShoppingCartWithLocalStorage();
-
-    if (window.localStorage.getItem('shoppingCart')!=null) {
-        document.getElementById("placeOrder1").disabled=false;
-    }
-    
+    if (document.getElementById("page-header").innerHTML === "Our Pizza Menu") {
+        fillShoppingCartWithLocalStorage();
+        console.log(1);
+        if (window.localStorage.getItem('shoppingCart')!=null) {
+            document.getElementById("placeOrder1").disabled=false;
+        }
+    } else if (document.getElementById("page-header").innerHTML === "Cart Items") {
+        fillCheckOutCart();
+        console.log(2);
+    } else {
+        console.log(3);
+    };    
 });
 
 function fillShoppingCartWithLocalStorage () {
@@ -114,6 +120,7 @@ function addToShoppingCartList(description, price) {
     console.log(shoppingCartAll);
     // Add new item to cart list
     document.querySelector('#shopping-cart-list').append(li);
+    
 
 };
 
@@ -132,8 +139,20 @@ function clearCart (){
     
 };
 
+// payment ------------------------------------------
 
+function fillCheckOutCart () {
+    var totalPriceCart = 0;
+    for (i=0;i<shoppingCartAll.length;i++) {
+        // Create new item for cart list
+        const li = document.createElement('li');
+        totalPriceCart = Number(totalPriceCart)+Number(shoppingCartAll[i]["price"]);
+        li.innerHTML = shoppingCartAll[i]["description"];
 
+        // Add new item to cart list
+        document.querySelector('#checkOutCart').append(li);
+    }
+};
 
 
 /*
