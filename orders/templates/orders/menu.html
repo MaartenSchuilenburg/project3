@@ -103,8 +103,8 @@
 
             <hr>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cart">Place order</button><small>      </small>
-            <button class="clear-cart btn btn-danger" onclick="clearCart()">Clear Cart</button>  <!--onclick="clearCart()"-->
+            <button type="button" class="btn btn-primary" id="placeOrder1" data-toggle="modal" data-target="#cart" disabled>Place order</button><small>      </small>
+            <button class="clear-cart btn btn-danger" onclick="clearCart()">Clear Cart</button>  
 
             <!-- Modal Check out-->
             <div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -125,7 +125,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Confirm order</button>
+                    <button type="button" id="placeOrder2" class="btn btn-primary" disabled>Confirm order</button>
                     
                 </div>
                 </div>

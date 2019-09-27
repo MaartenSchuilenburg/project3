@@ -3,6 +3,7 @@ var choosenPizza =[]; //TODO
 var priceChoosenSub = 0;
 window.choosenExtra = [];
 
+
 if (window.localStorage.getItem('totalPriceCart')==null) {
     var totalPriceCart = 0;
 } else {
@@ -16,6 +17,13 @@ if (JSON.parse(window.localStorage.getItem('shoppingCart'))==null) {
 
 document.addEventListener('DOMContentLoaded', () => {
     fillShoppingCartWithLocalStorage();
+
+    if (window.localStorage.getItem('shoppingCart')!=null) {
+        console.log(1);
+        document.getElementById("placeOrder1").disabled=false;
+        document.getElementById("placeOrder2").disabled=false;
+    }
+    
 });
 
 function fillShoppingCartWithLocalStorage () {
@@ -83,6 +91,7 @@ function sendToCart(item) {
     var itemDescription = item.getAttribute("data-name");
     var itemPrice = item.getAttribute("data-price");
     
+    
     totalPriceCart = Number(parseFloat(totalPriceCart) + parseFloat(itemPrice)).toFixed(2);
     window.localStorage.setItem('totalPriceCart',totalPriceCart);
 
@@ -99,6 +108,9 @@ function addToShoppingCartList(description, price) {
     var price = price;
     li.innerHTML = description;
 
+    //document.getElementById("placeOrder1").disabled=false;
+    //document.getElementById("placeOrder2").disabled=false;
+
     shoppingCartAll.push({description:description, price:price}); 
     window.localStorage.setItem('shoppingCart', JSON.stringify(shoppingCartAll));
 
@@ -112,6 +124,8 @@ function addToShoppingCartList(description, price) {
 function clearCart (){
     
     window.localStorage.clear();
+    //document.getElementById("placeOrder1").disabled=true;
+    //document.getElementById("placeOrder2").disabled=true;
     document.getElementById('shopping-cart-total').innerHTML = 0;
     document.getElementById('shopping-cart-total-modal').innerHTML = 0;
     document.getElementById('shopping-cart-list').innerHTML ='';
