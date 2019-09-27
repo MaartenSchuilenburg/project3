@@ -21,13 +21,17 @@ def index(request):
     }
     return render(request, "orders/menu.html", context)
     
-    if request.is_ajax():
-        #do something
-        request_data = request.POST
-        return HttpResponse("OK")
+
+def payment_view(request):
+    if not request.user.is_authenticated:
+        return render(request, "orders/login.html", {"message": None})
+    context = {
+        "user": request.user,
+        "orders":Toppings.objects.all(),
+    }
+    return render(request, "orders/payment.html", context)
 
 
- 
 def login_view(request):
     username = request.POST["username"]
     password = request.POST["password"]
