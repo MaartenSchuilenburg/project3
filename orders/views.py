@@ -35,9 +35,9 @@ def pay(request):
     print('RECEIVED REQUEST: ' +request.method) 
     if request.method == 'POST':
         print("POST")
-        order_description= str(request.POST.get("order_overview",""))
+        order_description= request.POST.get("order_overview", "GuestTest")
         print("1"+order_description)
-        return render(request, "orders/request.html")
+        return render(request, "orders/index.html")
         '''
         order_description= str(request.POST["order_overview"]) #"salad and saled2"
         order_price = float(request.POST["order_price"])

@@ -18,7 +18,7 @@
 
             <form action="{% url 'pay' %}" method="post" onSubmit="alert('Thank you for your order, confirmation will be sent to you via mail');">
                 {% csrf_token %}
-                <input id="order_overview" type="hidden" name="order_overview" value="salad and saled2" required disabled><br>
+                <input id="order_overview" type="text" name="order_overview" value="salad and saled2" required disabled><br>
                 <label for="order_price">Order price: </label>
                 <input id="order_price" type="number" name="order_price" value="20.50" required disabled>
                 <hr>
