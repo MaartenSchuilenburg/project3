@@ -11,14 +11,22 @@
 
 <div class="container">
     <div class="row">
+        <h4 id="page-header">Cart Items</h4>
         <div class="col-6">
-            <h4 id="page-header">Cart Items</h4>
-
-            <ul id="checkOutCart">
+            <ul id="checkOutCart" name="checkOutCart">
             </ul>
-            <p>$20.50</p>
-            <button class="btn btn-primary">Pay</button>
-            <a href="{% url 'index' %}" type="button" class="btn btn-secondary">Continue shopping</a>
+
+            <form action="{% url 'pay' %}" method="post" onSubmit="alert('Thank you for your order, confirmation will be sent to you via mail');">
+                {% csrf_token %}
+                <input id="order_overview" type="hidden" name="order_overview" value="salad and saled2" required disabled><br>
+                <label for="order_price">Order price: </label>
+                <input id="order_price" type="number" name="order_price" value="20.50" required disabled>
+                <hr>
+                <input type="submit" value="Pay" class="btn btn-primary"/>
+            </form>
+
+            <hr>
+            <a href="{% url 'index' %}" type="button" class="btn btn-secondary">Continue shopping / edit cart</a>
         </div>
     </div>
 </div>

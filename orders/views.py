@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.contrib.auth.forms import UserCreationForm
 
 from orders.forms import SignUpForm
-from .models import Pizza, Toppings, Pasta, Salads, SubExtra, Subs, DinnerPlatters
+from .models import Pizza, Toppings, Pasta, Salads, SubExtra, Subs, DinnerPlatters, Orders
 
 
 def index(request):
@@ -30,6 +30,22 @@ def payment_view(request):
         "orders":Toppings.objects.all(),
     }
     return render(request, "orders/payment.html", context)
+
+def pay(request):
+    print('RECEIVED REQUEST: ' +request.method) 
+    if request.method == 'POST':
+        print("POST")
+        order_description= str(request.POST.get("order_overview",""))
+        print("1"+order_description)
+        return render(request, "orders/request.html")
+        '''
+        order_description= str(request.POST["order_overview"]) #"salad and saled2"
+        order_price = float(request.POST["order_price"])
+        Orders.objects.create(order_description=order_description ,order_price=order_price)
+        '''
+    else: #GET
+        print('GET')
+        return render(request, "orders/error.html")
 
 
 def login_view(request):
@@ -60,3 +76,6 @@ def signup_view(request):
     else:
         form = SignUpForm()
     return render(request, 'orders/signup.html', {'form': form})
+
+def error_view(request):
+    return render(request, "orders/error.html")
