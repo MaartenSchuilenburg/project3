@@ -1,5 +1,7 @@
 var choosenSub = [];
-var choosenPizza =[]; //TODO
+var choosenPizza =[]; 
+var toppingsAmount = 0;
+var priceChoosenPizza = 0;
 var priceChoosenSub = 0;
 window.choosenExtra = [];
 
@@ -18,13 +20,11 @@ if (JSON.parse(window.localStorage.getItem('shoppingCart'))==null) {
 document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById("page-header").innerHTML === "Our Pizza Menu") {
         fillShoppingCartWithLocalStorage();
-        console.log(1);
         if (window.localStorage.getItem('shoppingCart')!=null) {
             document.getElementById("placeOrder1").disabled=false;
         }
     } else if (document.getElementById("page-header").innerHTML === "Cart Items") {
         fillCheckOutCart();
-        console.log(2);
     } else {
         console.log(3);
     };    
@@ -49,15 +49,26 @@ function addPizzaToppings (pizza) {
     document.getElementById("select-pizza-topping-1").disabled=true;
     document.getElementById("select-pizza-topping-2").disabled=true;
     document.getElementById("select-pizza-topping-3").disabled=true;
-
+    document.getElementById("select-pizza-topping-1").style.display = "none";
+    document.getElementById("select-pizza-topping-2").style.display = "none";
+    document.getElementById("select-pizza-topping-3").style.display = "none";
+    
     toppingsAmount = pizza.getAttribute("data-amount");
+    choosenPizza = pizza.getAttribute("data-description");
+    priceChoosenPizza = pizza.getAttribute("data-price");
+
+    if (toppingsAmount === "0") {
+        document.getElementById("pizza_question").innerHTML = "Do you want to add a Regular pizza to your shopping cart?";
+    } else {
+        document.getElementById("pizza_question").innerHTML = "Which topping(s) would you like on your pizza?";
+    };
 
     for (i = 0; i<toppingsAmount; i++) {
         var loopToppings = "select-pizza-topping-"+(i+1);
         var loopToppings2 = String(loopToppings);
         document.getElementById(loopToppings2).disabled = false;
+        document.getElementById(loopToppings2).style.display = "";
     };
-
 };
 
 function myFunction(item) {
@@ -69,6 +80,33 @@ function myFunction(item) {
 
 function addExtra(choosenExtra) {
     window.choosenExtra = choosenExtra.value;
+};
+
+function sendToCartPizza() {
+    var toppings = "";
+    for (i = 0; i<toppingsAmount; i++) {
+        var loopToppings = "select-pizza-topping-"+(i+1);
+        var loopToppings2 = String(loopToppings);
+        var e = document.getElementById(loopToppings2);
+        var topping = e.options[e.selectedIndex].value;
+        if (topping === "No Topping") {
+            console.log("testttonnn");
+        } else {
+            toppings = toppings.concat(", "+topping);
+        };
+    };
+
+
+
+    var choosenPizzaWithToppings = choosenPizza + toppings;
+
+    totalPriceCart = Number(totalPriceCart) + Number(priceChoosenPizza);
+    window.localStorage.setItem('totalPriceCart',totalPriceCart);
+        
+    document.getElementById('shopping-cart-total').innerHTML = totalPriceCart;
+    document.getElementById('shopping-cart-total-modal').innerHTML = totalPriceCart;
+
+    addToShoppingCartList(choosenPizzaWithToppings,priceChoosenPizza);
 };
 
 function sendToCartSub() {
@@ -117,7 +155,7 @@ function addToShoppingCartList(description, price) {
     shoppingCartAll.push({description:description, price:price}); 
     window.localStorage.setItem('shoppingCart', JSON.stringify(shoppingCartAll));
 
-    console.log(shoppingCartAll);
+    //console.log(shoppingCartAll);
     // Add new item to cart list
     document.querySelector('#shopping-cart-list').append(li);
     
@@ -125,7 +163,7 @@ function addToShoppingCartList(description, price) {
 };
 
 
-function clearCart (){
+function clearCart(){
     
     window.localStorage.clear();
     document.getElementById("placeOrder1").disabled=true;
@@ -141,14 +179,19 @@ function clearCart (){
 
 // payment ------------------------------------------
 
-function fillCheckOutCart () {
+function fillCheckOutCart() {
     var totalPriceCart = 0;
+    var shoppingCartString = '';
     for (i=0;i<shoppingCartAll.length;i++) {
         // Create new item for cart list
         const li = document.createElement('li');
         totalPriceCart = Number(totalPriceCart)+Number(shoppingCartAll[i]["price"]);
         li.innerHTML = shoppingCartAll[i]["description"];
-
+        shoppingCartString = shoppingCartAll[i]["description"] + ' ; ' + shoppingCartString;
+        
+        document.getElementById('order_overview').value = shoppingCartString;
+        document.getElementById('checkOutPrice').innerHTML = totalPriceCart;
+        document.getElementById('order_price').value = totalPriceCart;
         // Add new item to cart list
         document.querySelector('#checkOutCart').append(li);
     }

@@ -15,14 +15,13 @@
         <div class="col-6">
             <ul id="checkOutCart" name="checkOutCart">
             </ul>
-
+            <p>Order price: €<span id="checkOutPrice"></span></p>
             <form action="{% url 'pay' %}" method="post" onSubmit="alert('Thank you for your order, confirmation will be sent to you via mail');">
                 {% csrf_token %}
-                <input id="order_overview" type="text" name="order_overview" value="salad and saled2" required disabled><br>
-                <label for="order_price">Order price: </label>
-                <input id="order_price" type="number" name="order_price" value="20.50" required disabled>
+                <input id="order_overview" type="text" name="order_overview" id="order_overview" value="1" required hidden><br> 
+                <input id="order_price" type="text" name="order_price" id="order_price" value="1" required hidden >
                 <hr>
-                <input type="submit" value="Pay" class="btn btn-primary"/>
+                <input type="submit" value="Pay" class="btn btn-primary" onclick="clearCart()"/>
             </form>
 
             <hr>
@@ -31,4 +30,4 @@
     </div>
 </div>
 
-{% endblock %}
+{% endblock %} 

@@ -34,19 +34,15 @@ def payment_view(request):
 def pay(request):
     print('RECEIVED REQUEST: ' +request.method) 
     if request.method == 'POST':
-        print("POST")
-        order_description= request.POST.get("order_overview", "GuestTest")
-        print("1"+order_description)
-        return render(request, "orders/index.html")
-        '''
-        order_description= str(request.POST["order_overview"]) #"salad and saled2"
-        order_price = float(request.POST["order_price"])
+        order_description= request.POST.get('order_overview')
+        order_price= request.POST.get('order_price') 
+        print(order_description)
+        print(order_price)
         Orders.objects.create(order_description=order_description ,order_price=order_price)
-        '''
+        return render(request, "orders/payment.html")
     else: #GET
         print('GET')
         return render(request, "orders/error.html")
-
 
 def login_view(request):
     username = request.POST["username"]
